@@ -1,0 +1,152 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu">
+<head>
+<title>ModBUS ipari hálózatok - gateway</title>
+<link rel="shortcut icon" href="favicon.ico" />
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Expires" content="Mon, 1 Jan 1997 08:00:00 GMT" />
+<meta http-equiv="Cache-Control" content="post-check=0, pre-check=0" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="content-language" content="hu" />
+<meta name="robots" content="index, follow" />
+<meta name="revisit-after" content="5 days" />
+<meta name="description" content="ModBUS ipari hálózatok - konverziók, protokoll átalakítások, ModBUS átjáró, gateway eszközök" />
+<meta name="keywords" content="modbus , TCP , RTU , SCADA , ASCII , RS232 , RS485 , modbus.hu , telemetria , távmérés , távfelügyelet , smart meter , smart grid , hiba" />
+</head>
+
+<body style="color: rgb(21, 7, 0); background-color: rgb(140, 210, 110);" alink="#000099" link="#000099" vlink="#3DB5DD">
+<div align="center">
+<table border="0" width="950">
+    <tr>
+        <td width="144"><img src="logo_1.png" width="150" height="50" border="0"></td>
+        <td width="462">
+            <p align="center"><font size="5"></font>
+<b><i><font face="Tahoma"><span style="font-size:28pt;">ModBUS<br>gateway</span></font></i></b><font size="5"></font></p>
+        </td>
+        <td width="144"><img src="logo_1.png" width="150" height="50" border="0"></td>
+    </tr>
+</table>
+
+<table border="0" width="950">
+        <td width="950">
+<hr size="1" width="950" align="center" />
+<table border="0" align="center">
+  <tr>
+	<td><a href="index.html"><input type="image" src="index.jpg" border="1" height="50"></a></td>
+	<td width="70"></td>
+    <td><a href="alapok.html"><input type="image" src="alapok.jpg" border="1" height="50"></a></td>
+	<td width="70"></td>
+    <td><a href="scada.html"><input type="image" src="scada.jpg" border="1" height="50"></a></td>
+	<td width="70"></td>
+	<td><a href="tavmeres.html"><input type="image" src="tavmeres.jpg" border="1" height="50"></a></td>
+	<td width="70"></td>
+	<td><a href="gyik.html"><input type="image" src="gyik.jpg" border="1" height="50"></a></td>
+  </tr>
+</table>
+<hr size="1" width="950" align="center" />
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;">Mindig egy izgalmas kérdés a különféle protokollok átalakítása, így van ez a soros és Ethernet ModBUS kommunikáció esetében is.
+A telemetria és automatizálás területén sokszor alkalmazzák a ModBUS RTU eszközöket.
+Ennek az az oka, hogy - néhány fontos alapszabály betartásával - robosztus, megbízható rendszert lehet általuk kialakítani.<br><br>
+A SCADA rendszerek kapcsán gyakran kerül előtérbe az Ethernet, melynek egyik következménye a ModBUS TCP protokoll használatának szüksége.
+Az RTU <-> TCP konverziónak számos módja van, melyek az alábbiakban kerülnek bemutatásra.<br>
+<i><small>(Forrás: <a href="https://www.moxa.com/en/literature-library/architect-your-systems-to-get-the-most-out-of-your-modbus-devices" target="_blank">How to Architect Your Systems to Get the Most Out of Your Modbus Devices</a>)</small></i></font></p>
+<hr size="1" width="950" align="center" />
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;"><b>I. SCADA host + ModBUS TCP driver</b><br>
+Ilyen esetben gateway (protokoll átalakító átjáró) használata szükséges, melynek segítségével ModBUS TCP protokol szerint lehetséges kommunikálni a ModBUS RTU eszközökkel.
+Amikor a gateway kap egy ModBUS TCP kérést, átalakítja az eredeti csomagot ModBUS RTU protokollnak megfelelő csomaggá, majd azt továbbítja a ModBUS RTU eszközök felé.<br></font></p>
+<p align="center"><img src="01.jpg"></p>
+<hr size="1" width="950" align="center" />
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;"><b>II. SCADA host + ModBUS RTU driver (beépített soros porttal)</b><br>
+Lényegében egy kettős konverziós megoldás olyan esetekre, amikor a  meglevő, beépített soros porttal rendelkező SCADA hostot a hozzá kapcsolódó ModBUS RTU eszközökkel Ethernet hálózathoz szükséges csatlakoztatni.
+Ilyenkor két gateway eszközt használunk, melyből az egyik elvégzi az RTU -> TCP konverziót, majd a másik ennek az ellenkezőjét, a TCP -> RTU átalakítást.<br></font></p>
+<p align="center"><img src="02.jpg"></p>
+<hr size="1" width="950" align="center" />
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;"><b>III. SCADA host + ModBUS RTU driver (beépített soros port nélkül)</b><br>
+Amennyiben a meglevő SCADA host nem rendelkezik saját beépített soros porttal, akkor lehetőségként marad az, hogy egy soros eszközkiszolgálóval virtuális soros portot kell létrehozni.
+Ezzel a megoldással lehetővé válik a távoli soros eszközök elérése ezen az új eszközkiszolgálón keresztül, ugyanúgy, mintha a SCADA szerver rendelkezne saját natív soros porttal.<br></font></p>
+<p align="center"><img src="03.jpg"></p>
+<hr size="1" width="950" align="center" />
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;"><b>IV. SCADA host + beágyazott Ethernet driver</b><br>
+Amennyiben a meglevő SCADA host nem rendelkezik soros porttal, és a virtuális soros port létrehozása sem opció, olyankor jöhet szóba a beágyazott Ethernet driver használata.
+Fontos kitétel, hogy a SCADA szoftvernek alkalmasnak kell lennie a beágyazott Ethernet driver támogatására.
+Ennél a megoldásnál a host és a soros eszközök között a kapcsolat egy protokoll nélküli transzparens TCP/IP vagy UDP kommunikáción keresztül valósul meg, melyen a SCADA ModBUS RTU csomagokat küld a terepi eszközök felé.<br></font></p>
+<p align="center"><img src="04.jpg"></p>
+<hr size="1" width="950" align="center" />
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;"><b>V. ModBUS TCP - MultiMaster kapcsolat</b><br>
+Ethernet kapcsolaton keresztül a legtöbb gateway támogatja a MultiMaster hozzáférést (több, akár 32 SCADA host használata).
+A soros eszközök esetében nehezebb a hálózati redundancia biztosítása (alapesetben nem támogatott a több Master alkalmazása), de átjárók használatakor jellemzően ez nem jelent gondot.<br></font></p>
+<p align="center"><img src="05.jpg"></p>
+<hr size="1" width="950" align="center" />
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;"><b>VI. Egy ModBUS TCP kapcsolat - több soros port</b><br>
+Ha több, különböző soros portokra felfűzött Slave eszközt kell lekérdezni, akkor nagyon jó alternatíva a többportos gateway használata.
+Ilyenkor az átjárót úgy kell konfigurálni, hogy a ModBUS kérést a Slave ID alapján a megfelelő soros portra irányítva küldje el.<br></font></p>
+<p align="center"><img src="06.jpg"></p>
+<hr size="1" width="950" align="center" />
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;"><b>VII. Egyidejű hozzáférés - régi ModBUS RTU HMI, új ModBUS TCP SCADA</b><br>
+Amennyiben szükséges lenne megtartani a meglévő HMI kapcsolatokat, de az eszköz soros portja már csatlakozik egy átjáróhoz, ez esetben nincs elérhető szabad soros port a HMI kapcsolathoz.
+Ilyen esetben erre alkalmas átjárókkal megoldható a soros port átirányítás. Ez nagy mértékben hasonlít egy router működésére, mivel a gateway át tudja adni a kérést a különböző soros portok felé a Slave ID alapján.<br></font></p>
+<p align="center"><img src="07.jpg"></p>
+<hr size="1" width="950" align="center" />
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;"><b>Gateway konfigurálás</b><br>
+A stabil működés szempontjából az egyik legfontosabb tényező a megfelelően beállított időzítés. Az eltérő gateway topológiák más-más konfigurációt igényelnek.
+Például, a különböző soros portok eltérő TCP port jelölést kaphatnak, illetve azokhoz egyedi IP címek rendelhetők, vagy az egyes Slave csoportok routing táblába rendezhetők.
+Lehetőség van továbbá a gateway kétirányú Slave eszközként történő konfigurálására, illetve ha rendelkezik belső memóriával, akkor akár az "agent" mód beállítására is.
+Mivel minden ModBUS rendszer kialakítása valamilyen szinten eltér egymástól, ezért a fellépő rendellenességek, működési hibák is nagyban különböznek.<br><br>
+Minden konfigurációt és hibakeresési módszert lehetetlenség felsorolni, de az adott esetre vonatkozó konkrét kérdések már könnyebben megválaszolhatók.<br></font></p>
+<hr size="1" width="950" align="center" />
+<p align="center"><font size="5" face="Tahoma"><b>Kérdések esetén…</b></p>
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;">Egy-egy ModBUS kommunikációs feladat kivitelezése, illetve probléma elhárítása sok esetben csak gyakorlati tapasztalattal lehetséges. A még megoldatlan kérdéseket az <a href="mailto:support@modbus.hu">support@modbus.hu</a> email címen, vagy alább a Kapcsolatfelvétel űrlapon lehet feltenni.<br></font></p>
+       
+        <hr size="1" width="950" align="center" />
+        </td>
+
+<table border="0" width="950">
+    <tr>
+        <td width="144" valign="top">
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Nem található a hiba oka?</span></font></h2>
+            <h2> </h2>
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Régóta keresgél a neten, és fogytán a türelem?</span></font></h2>
+			<h2> </h2>
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Nem érkeznek be az adatok?</span></font></h2>
+			<h2> </h2>
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Nem jön össze egy remote IO kapcsolat?</span></font></h2>        
+        </td>
+        
+        <td width="462" valign="top">
+
+<div><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfjyZ101fsSVBmWwSHWayiSW-sA1sU254a2vib3CKdiFPO9FA/viewform?embedded=true" width="640" height="878" frameborder="0" marginheight="0" marginwidth="0">Betöltés…</iframe></div>
+
+            <p> </p>
+        </td>
+        <td width="144" valign="top">
+            <h2><font face="Tahoma"><span style="font-size:14pt;">ModBUS hálózati probléma adódott?</span></font></h2>
+            <h2> </h2>
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Nincs, vagy instabil a kommunikáció?</span></font></h2>
+            <h2> </h2>
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Most ismerkedik a ModBUS alapokkal?</span></font></h2>
+            <h2> </h2>
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Telemetria megoldást keres?</span></font></h2>
+        </td>
+    </tr>
+	
+</table>
+
+<hr size="1" width="950" align="center" />
+
+<table border="0" width="950">
+    <tr>
+        <td width="950">
+            <p align="center"><font face="Tahoma"><b><i><u>Kapcsolat:</u></i></b> </font><span style="font-family:'Comic Sans MS'; font-size:12pt;"><a href="mailto:support@modbus.hu">support@modbus.hu</a></span></p>
+            
+            <p align="center"><span style="font-size:12pt;">További böngészés a <a href="http://www.google.hu/"><img src="http://www.google.com/logos/Logo_40wht.gif" 
+border="0" ALT="Google" width="75" height="31"></a> keresőben</span></p>
+        </td>
+    </tr>
+</table>
+</table>
+</div>
+</body>
+</html>

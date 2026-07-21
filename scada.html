@@ -1,0 +1,129 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu">
+<head>
+<title>ModBUS ipari hálózatok - SCADA</title>
+<link rel="shortcut icon" href="favicon.ico" />
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Expires" content="Mon, 1 Jan 1997 08:00:00 GMT" />
+<meta http-equiv="Cache-Control" content="post-check=0, pre-check=0" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="content-language" content="hu" />
+<meta name="robots" content="index, follow" />
+<meta name="revisit-after" content="5 days" />
+<meta name="description" content="ModBUS ipari hálózatok - SCADA alapelvek, felügyeleti és adatgyűjtő rendszerek, megoldások" />
+<meta name="keywords" content="modbus , TCP , RTU , SCADA , ASCII , RS232 , RS485 , modbus.hu , telemetria , távmérés , távfelügyelet , smart meter , smart grid , hiba" />
+</head>
+
+<body style="color: rgb(21, 7, 0); background-color: rgb(140, 210, 110);" alink="#000099" link="#000099" vlink="#3DB5DD">
+<div align="center">
+<table border="0" width="950">
+    <tr>
+        <td width="144"><img src="logo_1.png" width="150" height="50" border="0"></td>
+        <td width="462">
+            <p align="center"><font size="5"></font>
+<b><i><font face="Tahoma"><span style="font-size:28pt;">ModBUS<br>SCADA</span></font></i></b><font size="5"></font></p>
+        </td>
+        <td width="144"><img src="logo_1.png" width="150" height="50" border="0"></td>
+    </tr>
+</table>
+
+<table border="0" width="950">
+        <td width="950">
+<hr size="1" width="950" align="center" />
+<table border="0" align="center">
+  <tr>
+	<td><a href="index.html"><input type="image" src="index.jpg" border="1" height="50"></a></td>
+	<td width="70"></td>
+    <td><a href="alapok.html"><input type="image" src="alapok.jpg" border="1" height="50"></a></td>
+	<td width="70"></td>
+	<td><a href="tavmeres.html"><input type="image" src="tavmeres.jpg" border="1" height="50"></a></td>
+	<td width="70"></td>
+    <td><a href="gateway.html"><input type="image" src="gateway.jpg" border="1" height="50"></a></td>
+	<td width="70"></td>
+	<td><a href="gyik.html"><input type="image" src="gyik.jpg" border="1" height="50"></a></td>
+  </tr>
+</table>
+<hr size="1" width="950" align="center" />
+<p align="center"><font size="5" face="Tahoma"><b>SCADA</b></font></p>
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;">Supervisory Control and Data Acquisition<br>
+<i>(Felügyeleti és Adatgyűjtő Rendszer - ModBUS alapokon)</i><br><br>
+A SCADA egy olyan számítógépes architektúra, mely hálózati adatkommunikációt és grafikus felhasználói felületeket tartalmaz.<br>
+Feladata a gépek és folyamatok magas szintű felügyelete.<br>A rendszer részei a különféle érzékelők és egyéb eszközök is, például a programozható logikai vezérlők (PLC).<br><br>
+A koncepciót univerzálisra fejlesztették, szabványos protokollok (pl. ModBUS) alkalmazásával.<br>
+A SCADA által lehetőség nyílik nagyszabású folyamatok irányítására, egyszerre több, egymástól nagyobb távolságban (akár különböző kontinenseken) levő helyszíneken is.</font></p>
+<hr size="1" width="950" align="center" />
+<p align="center"><font size="5" face="Tahoma"><b>Vezérlések</b></font></p>
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;">A SCADA-rendszer számos különféle terepi eszközön képes felügyeleti műveleteteket végrehajtani. Az alábbi diagram egy általános üzem-modell, mely bemutatja a különböző funkcionális szinteket.</font></p>
+<p align="center"><img src="Levels.png"><br>
+<i><small>(Forrás: <a href="https://en.wikipedia.org/wiki/SCADA" target="_blank">Wikipedia</a>)</small></i></p>
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;"><u>A diagram jelölései alapján:</u><br><br>
+•	A 0. szint tartalmazza a különféle terepi eszközöket (érzékelőket, vezérlőelemeket stb.);<br>
+•	Az 1. szinten az ipari be/kimeneti (I/O) modulok, és a hozzájuk tartozó logikai eszközök találhatók;<br>
+•	A 2. szinten vannak a helyi számítógépek, melyek az adatokat gyűjtik, illetve biztosítják a kezelői megjelenítést;<br>
+•	A 3. az ellenőrzési szint, melynek feladata a folyamatok nyomon követése;<br>
+•	A 4. szinten pedig a folyamatok ütemezése történik.</font></p>
+<hr size="1" width="950" align="center" />
+<p align="center"><font size="5" face="Tahoma"><b>Kommunikáció</b></font></p>
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;">Az ábra 1. szintje tartalmazza a PLC, illetve a távoli elérést biztosító RTU egységeket.<br>
+A 2. szint tartalmazza a leolvasásokhoz és az állapotjelzések megjelenítéséhez szükséges SCADA felületet. Az adatok ezután úgy vannak összeállítva, hogy a HMI-t (Human Machine Interface) használó kezelő felügyeleti döntéseket hozhasson a normál RTU (PLC) vezérlések beállítására vagy felülbírálására.<br><br>
+Mindezen elemek között stabil adatkapcsolatra van szükség. Ennek egyik legelterjedtebb formája a ModBUS kommunikáció. A folyamatba integrált eszközök (adatpontok) egyedi azonosítóval rendelkeznek. Az adatok az egyedi azonosítók alapján vannak megkülönböztetve, biztosítva ezáltal a pontos címzést, illetve a helyes feldolgozást.</font></p>
+<hr size="1" width="950" align="center" />
+<p align="center"><font size="5" face="Tahoma"><b>SCADA felhasználás</b></font></p>
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;">A SCADA rendszereket a fizikai folyamatok vezérlésére és monitorozására használják. Ilyenek például az energia szállítás (elektromos áram, földgáz, kőolaj), a vízelosztás, a forgalom irányítás, valamint a modern társadalom alapjául szolgáló egyéb rendszerek.<br>
+Kiemelt szerepet kap a SCADA a létesítmény-üzemeltetés, az energiatermelés és ellátás, valamint az ipari folyamatirányítás különböző területein.</font></p>
+<hr size="1" width="950" align="center" />
+<p align="center"><font size="5" face="Tahoma"><b>Kérdések esetén…</b></font></p>
+<p align="center"><font face="Tahoma"><span style="font-size:14pt;">Egy-egy ModBUS kommunikációs feladat kivitelezése, illetve probléma elhárítása sok esetben csak gyakorlati tapasztalattal lehetséges. A még megoldatlan kérdéseket az <a href="mailto:support@modbus.hu">support@modbus.hu</a> email címen, vagy alább a Kapcsolatfelvétel űrlapon lehet feltenni.<br></font></p>
+       
+        <hr size="1" width="950" align="center" />
+        </td>
+
+<table border="0" width="950">
+    <tr>
+        <td width="144" valign="top">
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Nem található a hiba oka?</span></font></h2>
+            <h2> </h2>
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Régóta keresgél a neten, és fogytán a türelem?</span></font></h2>
+			<h2> </h2>
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Nem érkeznek be az adatok?</span></font></h2>
+			<h2> </h2>
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Nem jön össze egy remote IO kapcsolat?</span></font></h2>        
+        </td>
+        
+        <td width="462" valign="top">
+
+<div><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfjyZ101fsSVBmWwSHWayiSW-sA1sU254a2vib3CKdiFPO9FA/viewform?embedded=true" width="640" height="878" frameborder="0" marginheight="0" marginwidth="0">Betöltés…</iframe></div>
+
+            <p> </p>
+        </td>
+        <td width="144" valign="top">
+            <h2><font face="Tahoma"><span style="font-size:14pt;">ModBUS hálózati probléma adódott?</span></font></h2>
+            <h2> </h2>
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Nincs, vagy instabil a kommunikáció?</span></font></h2>
+            <h2> </h2>
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Most ismerkedik a ModBUS alapokkal?</span></font></h2>
+            <h2> </h2>
+            <h2><font face="Tahoma"><span style="font-size:14pt;">Telemetria megoldást keres?</span></font></h2>
+        </td>
+    </tr>
+	
+</table>
+
+<hr size="1" width="950" align="center" />
+<table border="0" width="950">
+    <tr>
+        <td width="950">
+            <p align="center"><font face="Tahoma"><b><i><u>Kapcsolat:</u></i></b> </font><span style="font-family:'Comic Sans MS'; font-size:12pt;"><a href="mailto:support@modbus.hu">support@modbus.hu</a></span></p>
+            
+            <p align="center"><span style="font-size:12pt;">További böngészés a <a href="http://www.google.hu/"><img src="http://www.google.com/logos/Logo_40wht.gif" 
+border="0" ALT="Google" width="75" height="31"></a> keresőben</span></p>
+        </td>
+    </tr>
+</table>
+</table>
+</div>
+</body>
+</html>
